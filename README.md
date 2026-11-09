@@ -44,7 +44,7 @@ npm run build
 
 ## GitHub 保存与恢复
 
-私有仓库：https://github.com/chenyuxiaojin/liang-guanhao-personal-site
+公开仓库：https://github.com/chenyuxiaojin/liang-guanhao-personal-site
 
 仓库保存完整网站源代码、所有实际使用的图片和视频、依赖版本锁定文件、构建脚本与 Git 版本历史。初版和网格改版均可从提交记录找回。
 
@@ -62,3 +62,18 @@ git push github main
 如还修改了其他源码或配置文件，应一起加入提交。GitHub 只会保存已经提交并推送的内容。
 
 恢复任意历史版本时，先查看 `git log --oneline`，再使用 `git switch -c restore-version <提交编号>` 创建恢复分支。
+
+## GitHub Pages 自动部署
+
+公开访问地址：https://chenyuxiaojin.github.io/liang-guanhao-personal-site/
+
+每次推送到 `main`，GitHub Actions 会安装锁定版本的依赖、生成静态页面并部署到 GitHub Pages；也可以在 Actions 页面手动运行 `Deploy GitHub Pages`。访问者不需要登录。
+
+本地复现静态构建：
+
+```sh
+npm ci
+npm run build:pages
+```
+
+产物位于 `out/`，包含 HTML、JavaScript、CSS、图片和视频。`scripts/build-pages.mjs` 根据仓库名设置资源前缀；页面源码与原 Sites 部署共用。`npm run build` 仍保留原有 Sites 构建方式。

@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, ArrowDown, ArrowRight, Play, X, Menu, Lightbulb, Theater, Workflow, Sparkles, Plus, Check, Copy } from "lucide-react";
+const assetBase = process.env.NEXT_PUBLIC_BASE_PATH || "";
 const sourceUrl="https://my.feishu.cn/wiki/Bkd8wGNNYivjbBkVkLMcADm86Td";
 const skills=[
  {n:"01",title:"创意策划",en:"CREATIVE PLANNING",Icon:Lightbulb,text:"节目创意、活动构思、视频内容。从一个闪念开始，一起推敲成可以实施的方案。",tags:["节目创意","活动构思","视频内容"]},
@@ -50,7 +51,7 @@ export default function Home(){
   <div className="section-heading"><div className="section-label">01 / CAPABILITIES</div><h2>四种方式，<br/>一起把事做成。</h2><span className="section-aside">THOUGHT → ACTION<br/>从想法，到真实的结果。</span></div>
   <div className="capability-stage">
    <div className="capability-detail" aria-live="polite"><span className="detail-number">0{activeSkill+1} / 04</span><h3>{skills[activeSkill].title}</h3><p>{skills[activeSkill].text}</p><div className="tags">{skills[activeSkill].tags.map(tag=><span key={tag}>{tag}</span>)}</div><a href="#connect" className="detail-link">从一个想法开始 <ArrowUpRight size={16}/></a></div>
-   <button className="showreel" onClick={playVideo} aria-label="播放梁冠豪的自我介绍视频"><img src="/portrait.jpg" alt="梁冠豪的自我介绍视频画面"/><span className="showreel-top">MEET GUANHAO <span>02:07</span></span><span className="showreel-type">{["CREATE.","MAKE.","CLARIFY.","EXPLORE."][activeSkill]}</span><span className="showreel-bottom">关于创意，关于我。<span className="play-icon"><Play size={18} fill="currentColor"/></span></span></button>
+   <button className="showreel" onClick={playVideo} aria-label="播放梁冠豪的自我介绍视频"><img src={`${assetBase}/portrait.jpg`} alt="梁冠豪的自我介绍视频画面"/><span className="showreel-top">MEET GUANHAO <span>02:07</span></span><span className="showreel-type">{["CREATE.","MAKE.","CLARIFY.","EXPLORE."][activeSkill]}</span><span className="showreel-bottom">关于创意，关于我。<span className="play-icon"><Play size={18} fill="currentColor"/></span></span></button>
    <div className="capability-select" aria-label="选择查看的能力">{skills.map((skill,i)=><button key={skill.n} onClick={()=>setActiveSkill(i)} aria-pressed={activeSkill===i} className={activeSkill===i?"active":""}><span className="select-number">{skill.n}</span><span>{skill.title}<small>{skill.en}</small></span><ArrowUpRight size={19}/></button>)}</div>
   </div>
   <div className="capability-bottom"><span>保持好奇 / 认真发生</span><span>不保证什么都会，但愿意一起研究。</span></div>
@@ -60,6 +61,6 @@ export default function Home(){
  <section id="connect" className="connect"><div className="wrap connect-inner"><div className="eyebrow section-label">04 / LET'S MAKE IT HAPPEN</div><ArrowUpRight className="connect-star" strokeWidth={.7} aria-hidden="true"/><h2>下一件有意思的事，<br/>我们一起。</h2><p>学习上的问题、项目想法，或是单纯想交流一下。<br/>不需要刻意找话题，也不用担心打扰。</p><div className="connect-actions"><a className="button dark" href={sourceUrl} target="_blank" rel="noreferrer">打开我的个人说明书<ArrowUpRight size={20}/></a><button className="text-button outline-copy" onClick={copyOutline}>{copied?<Check size={17}/>:<Copy size={17}/>} {copied?"合作提纲已复制":"复制一份合作沟通提纲"}</button></div><div role="status" className="copy-status">{copied?"把你的想法填进提纲，方便我们开始交流。":copyError?"浏览器未能复制。可以按「做什么、预期效果、截止时间、现有资料」整理你的想法。":""}</div></div></section>
  </main>
  <footer className="footer wrap"><a className="footer-name" href="#">梁冠豪<span>LIANG GUANHAO</span></a><p>说明书仅供参考，实际体验以本人为准。</p><a className="back-top" href="#">回到顶部<ArrowUpRight size={16}/></a></footer>
- <dialog ref={dialog} className="video-dialog" onClick={e=>{if(e.target===e.currentTarget)dialog.current?.close();}} aria-labelledby="video-title"><div className="video-panel"><div className="video-heading"><h2 id="video-title">你好，我是梁冠豪。</h2><button aria-label="关闭视频" onClick={()=>dialog.current?.close()}><X size={24}/></button></div><video ref={video} src="/introduction.mp4" poster="/portrait.jpg" controls playsInline preload="none">你的浏览器暂不支持视频播放。<a href="/introduction.mp4">下载自我介绍视频</a></video><p>自我介绍 · 让我们从认识彼此开始</p></div></dialog>
+ <dialog ref={dialog} className="video-dialog" onClick={e=>{if(e.target===e.currentTarget)dialog.current?.close();}} aria-labelledby="video-title"><div className="video-panel"><div className="video-heading"><h2 id="video-title">你好，我是梁冠豪。</h2><button aria-label="关闭视频" onClick={()=>dialog.current?.close()}><X size={24}/></button></div><video ref={video} src={`${assetBase}/introduction.mp4`} poster={`${assetBase}/portrait.jpg`} controls playsInline preload="none">你的浏览器暂不支持视频播放。<a href={`${assetBase}/introduction.mp4`}>下载自我介绍视频</a></video><p>自我介绍 · 让我们从认识彼此开始</p></div></dialog>
  </>;
 }
